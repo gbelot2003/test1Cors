@@ -38,13 +38,13 @@
             submit() {
                 
                 const datas = {
-                    'user': this.user,
+                    'user': this.email,
                     'pass': this.password
                 };
 
-                axios.post('localhost:50340/api/login', datas)
+                axios.post('http://localhost:50340/api/login/', datas)
                     .then(resp => {
-                        console.log(resp)
+                                            
                     })
     
             },
