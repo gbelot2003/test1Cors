@@ -1,31 +1,28 @@
 export default {
   state:{
-      token:''
+      token: localStorage.getItem('token'),
+      isLoggedIn: '',
   },
-  gettets:{
+  getters:{
     isLoggedIn(state){
         return state.isLoggedIn;
     },
     getToken(state){
         return state.token;
     },
-
   },
   mutations:{
     loginSuccess(state, payload){
         state.auth_error = null;
         state.isLoggedIn = true;
         state.loading = false;
-        state.token = payload.access_token;
-        localStorage.setItem('token', payload.access_token);
-        localStorage.setItem('expiration', payload.expires_in);
+        state.token = payload.token;
+        localStorage.setItem('token', payload.token);
     },
     logout(state){
         localStorage.removeItem('token');
         localStorage.removeItem('expiration');
         localStorage.removeItem('user');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('roles');
         state.isLoggedIn = false;
         state.currentUser = null;
     }

@@ -1,35 +1,53 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-    </v-toolbar>
-
     <v-content>
-      
-       <router-view></router-view>
-
+      <v-toolbar app>
+        <v-toolbar-title>
+  
+          <img src="@/assets/labMed.jpg" alt="" width="140">
+  
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn flat @click="logout" v-if="isAuthenticated">
+          <span class="mr-2">Logout</span>
+        </v-btn>
+      </v-toolbar>
+  
+      <router-view></router-view>
+  
     </v-content>
   </v-app>
 </template>
 
 <script>
-export default {
-  name: 'App',
-  data () {
-    return {
-      //
+  export default {
+    name: 'App',
+    data() {
+      return {
+        isLogin : ''
+      }
+    },
+    methods: {
+      logout() {
+        this.$store.commit("logout");
+        this.$router.push("/login");
+      }
+    },
+    computed: {
+      isAuthenticated() {
+        return this.$store.getters.isLoggedIn;
+      },
     }
   }
-}
 </script>
+
+<style>
+  .theme--light.application {
+    background: white !important;
+    color: white;
+  }
+  
+  .theme--light.v-toolbar {
+    background: white;
+  }
+</style>

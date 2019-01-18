@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-layout>
-            <v-flex xs10 offset-xs1 align-center justify-center row>
+            <v-flex xs8 offset-xs2 align-center justify-center row>
                 <v-form v-model="valid">
                     <v-text-field v-model="email" :rules="emailMatch" label="E-Mail" required></v-text-field>
                     <v-text-field v-model="password" :append-icon="show1 ? 'visibility_off' : 'visibility'" :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" name="input-10-1" label="Normal with hint text" hint="At least 8 characters" counter @click:append="show1 = !show1"></v-text-field>
@@ -36,15 +36,16 @@
         }),
         methods: {
             submit() {
-                
+    
                 const datas = {
                     'user': this.email,
                     'pass': this.password
                 };
-
-                axios.post('http://localhost:50340/api/login/', datas)
+    
+                axios.post('http://localhost:50340/api/v1/login/', datas)
                     .then(resp => {
-                                            
+                        this.$store.commit('loginSuccess', resp.data);
+                        this.$router.push("/dashboard");
                     })
     
             },

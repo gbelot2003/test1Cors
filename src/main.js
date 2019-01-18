@@ -6,7 +6,7 @@ import Vuex from "vuex";
 
 import StoreData  from './store.js';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 Vue.use(Vuex);
 
 const store = new Vuex.Store(StoreData);
