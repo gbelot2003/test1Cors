@@ -5,6 +5,7 @@ import Welcome from './components/Welcome.vue';
 import Login from "./components/Login/Login.vue";
 import Dashboard from "./components/Login/Dashboard.vue";
 import Ordenes from "./components/clientes/ListadoOrdenes.vue";
+import Orden from "./components/clientes/Orden.vue";
 
 Vue.use(VueRouter);
 
@@ -32,8 +33,15 @@ const router = new VueRouter({
             }
         },
         {
-            path: "/ordenes/:id",
+            path: "/pacientes/:id",
             component: Ordenes,
+            meta:{
+                forAdmins: true
+            }
+        },
+        {
+            path: "/ordenes/:id",
+            component: Orden,
             meta:{
                 forAdmins: true
             }

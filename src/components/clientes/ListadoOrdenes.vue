@@ -45,14 +45,12 @@
             async getOrdenes() {
                 try {
                     let identificador = this.$route.params.id;
-                    console.log(identificador);
-                    const rest = await axios.get("http://localhost:50340/api/v1/pacientes/1", {
+                    const rest = await axios.get("http://localhost:50340/api/v1/pacientes/" + identificador, {
                         headers: {
                             token: this.$store.getters.getToken
                         }
                     });
                     this.pacientes = rest.data;
-                    console.log("-> ", this.pacientes )
                 } catch (e) {
                     console.log(e)
                 }

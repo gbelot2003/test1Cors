@@ -15,7 +15,7 @@
                             <v-list-tile :key="index" avatar ripple>
                                 <v-list-tile-content>
                                     <v-list-tile-title>
-                                        <router-link  :to="'/ordenes/' + item.id">{{ item.nombre }}</router-link>
+                                        <router-link  :to="'/pacientes/' + item.id">{{ item.nombre }}</router-link>
                                     </v-list-tile-title>
                                 </v-list-tile-content>
                             </v-list-tile>
