@@ -4,7 +4,7 @@
             <br/>
             <br/>
             <v-spacer></v-spacer>
-            <v-dialog v-model="dialog" max-width="1000px">
+            <!--<v-dialog v-model="dialog" max-width="1000px">
                 <v-card class="page">
                     <v-card-text>
                         <v-container grid-list-md>
@@ -63,7 +63,7 @@
                                             <td>-</td>
                                         </tr>
 
-                                        <!--<tr -->
+                                        &lt;!&ndash;<tr &ndash;&gt;
                                         </tbody>
                                         <tbody v-else>
                                         <tr>
@@ -75,22 +75,40 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- NOTAS -->
+                                &lt;!&ndash; NOTAS &ndash;&gt;
                                 <div class="dialog-notas">
                                     <span>Notas:</span>
                                     <span>{{ dialogInfo.nota }}</span>
                                 </div>
-                                <!-- FIRMA -->
+                                &lt;!&ndash; FIRMA &ndash;&gt;
                                 <div class="dialog-firma" v-if="dialogInfo.validations">
                                     <p>Validado por: {{ dialogInfo.validations.dr_name }}</p>
 
                                     <ul>
                                         <li v-for="(dr, key) in dialogInfo.validations" :key="key">
-                                            {{ dr.dr_name }}
+                                            <span>{{ dr.dr_name }}</span>
                                         </li>
                                     </ul>
 
                                 </div>
+
+                            </v-layout>
+                        </v-container>
+                    </v-card-text>
+
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn class="no-print" color="blue darken-1" flat @click="close">Cancel</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>-->
+
+            <v-dialog v-model="dialog" max-width="1000px">
+                <v-card class="page">
+                    <v-card-text>
+                        <v-container grid-list-md>
+                            <v-layout wrap>
+
 
                             </v-layout>
                         </v-container>
@@ -154,6 +172,7 @@
 <script>
     import axios from "axios";
     import {group} from "../../assets/utils/funcions";
+    import jsPDF from 'jspdf';
 
     export default {
         name: "Orden",
@@ -184,7 +203,17 @@
                         }
                     });
                     this.dialogInfo = rest.data;
-                    this.dialog = true
+                    //this.dialog = true
+
+                    let pdfName = this.dialogInfo.paciente + " - "+ this.dialogInfo.id;
+                    var doc = new jsPDF();
+
+                    doc.setFontSize(20);
+                    doc.text("name", 60, 10);
+
+
+                    doc.save("datauristring'/'dataurlstring", pdfName + '.pdf');
+
                 } catch (e) {
                     console.log(e);
                 }
