@@ -1,29 +1,29 @@
 <template>
     <v-container>
-        <v-layout text-xs-center wrap>
-            <h1>Dashboard</h1>
+        <v-layout text-xs-center wrap black--text>
 
             <v-flex xs12 sm6 offset-sm3>
                 <v-card>
                     <v-toolbar color="blue" dark>
-                        <v-toolbar-side-icon></v-toolbar-side-icon>
-                        <v-toolbar-title>Pacientes</v-toolbar-title>
+                        <v-toolbar-title>{{ pacientes.nombre }}</v-toolbar-title>
                         <v-spacer></v-spacer>
                     </v-toolbar>
                     <v-list two-line>
-                        <template v-for="(item, index) in clientes">
+                        <template v-for="(item, index) in pacientes.ordenes">
                             <v-list-tile :key="index" avatar ripple>
                                 <v-list-tile-content>
                                     <v-list-tile-title>
-                                        <router-link  :to="'/ordenes/' + item.id">{{ item.nombre }}</router-link>
+                                        <span>Fecha: </span>
+                                        <router-link  :to="'/ordenes/' + item.id">{{ item.timestamp }}</router-link>
                                     </v-list-tile-title>
                                 </v-list-tile-content>
                             </v-list-tile>
-                            <v-divider v-if="index + 1 < clientes.length" :key="`divider-${index}`"></v-divider>
+                            <v-divider v-if="index + 1 < pacientes.ordenes.length" :key="`divider-${index}`"></v-divider>
                         </template>
                     </v-list>
                 </v-card>
             </v-flex>
+
 
 
         </v-layout>
@@ -34,24 +34,27 @@
     import axios from "axios";
 
     export default {
+        name: "ListadoOrdenes",
         data: () => ({
-            clientes: [],
-            token: '',
+            pacientes: []
         }),
         mounted() {
-            this.getPacientes();
+            this.getOrdenes();
         },
         methods: {
-            async getPacientes() {
+            async getOrdenes() {
                 try {
-                    const rest = await axios.get("http://localhost:50340/api/v1/pacientes", {
+                    let identificador = this.$route.params.id;
+                    console.log(identificador);
+                    const rest = await axios.get("http://localhost:50340/api/v1/pacientes/1", {
                         headers: {
                             token: this.$store.getters.getToken
                         }
                     });
-                    this.clientes = rest.data;
+                    this.pacientes = rest.data;
+                    console.log("-> ", this.pacientes )
                 } catch (e) {
-                    console.log("error", e)
+                    console.log(e)
                 }
             }
         }
