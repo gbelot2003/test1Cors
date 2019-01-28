@@ -172,7 +172,8 @@
 <script>
     import axios from "axios";
     import {group} from "../../assets/utils/funcions";
-    import jsPDF from 'jspdf';
+    import {CreatePdf} from "../../assets/utils/PdfGenerator";
+    //import jsPDF from 'jspdf';
 
     export default {
         name: "Orden",
@@ -183,7 +184,8 @@
                 examenes: {},
                 orden: {},
                 dialog: false,
-                dialogInfo: {}
+                dialogInfo: {},
+                logo: null
             }
         },
         mounted() {
@@ -202,21 +204,23 @@
                             token: this.$store.getters.getToken
                         }
                     });
-                    this.dialogInfo = rest.data;
-                    //this.dialog = true
 
-                    let pdfName = this.dialogInfo.paciente + " - "+ this.dialogInfo.id;
-                    var doc = new jsPDF();
-
-                    doc.setFontSize(20);
-                    doc.text("name", 60, 10);
-
-
-                    doc.save("datauristring'/'dataurlstring", pdfName + '.pdf');
+                    console.log(rest.data);
+                    CreatePdf(rest.data);
 
                 } catch (e) {
                     console.log(e);
                 }
+
+                /* let pdfName = this.dialogInfo.paciente + " - "+ this.dialogInfo.id;
+                 var doc = new jsPDF();
+
+                 doc.setFontSize(40)
+                 doc.text(35, 25, 'Paranyan loves jsPDF');
+                 doc.addImage(this.logo, 'png', 15, 40, 100, 100);
+
+                 doc.save("datauristring'/'dataurlstring", pdfName + '.pdf');*/
+
             },
             close: function () {
                 this.dialog = false
