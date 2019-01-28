@@ -60,7 +60,9 @@ export function CreatePdf(obj) {
     doc.setFontSize(11);
 
     if (obj.curva_data != null) {
-        doc.addImage(curvaImg, 'png', 25, 100, 150, 50);
+
+        doc.addImage(curvaImg, 'png', 30, 120, 160, 45);
+
     } else {
 
         //doc.autoTable({html: '#my-table'});
@@ -68,9 +70,8 @@ export function CreatePdf(obj) {
         // Or JavaScript:
 
 
-
-        doc.addImage(footer, 'png', 0, 267, 210, 30);
-
-        doc.save(obj.nombre + '.pdf');
     }
+    doc.addImage(footer, 'png', 0, 267, 210, 30);
+
+    doc.save(obj.nombre + '.pdf');
 }

@@ -13,7 +13,7 @@ const router = new VueRouter({
     routes:[
         {
             path: "/",
-            component: Welcome,
+            component: Login,
             meta:{
                 forVisitors: true
             }
