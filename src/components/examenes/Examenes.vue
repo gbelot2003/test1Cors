@@ -1,10 +1,11 @@
 <template>
-    
+    <h1>Prueba de Examen</h1>
 </template>
 
 <script>
     export default {
-        name: "Examenes"
+        name: "Examenes",
+        prop:['id']
     }
 </script>
 
