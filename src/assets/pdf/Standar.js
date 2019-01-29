@@ -12,6 +12,11 @@ export var Standart = function(doc, obj){
         var rest = J * R;
         var fila = trans + rest;
         doc.text(10, fila, value.title);
+
+        doc.text(70, fila, value.value, 'right');
+        doc.text(100, fila, value.unit);
+
+        doc.text(140, fila, value.valref);
         //console.log(key, value);
     }
 
