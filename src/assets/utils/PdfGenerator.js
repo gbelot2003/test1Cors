@@ -1,75 +1,45 @@
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import {curvaImg, header, footer} from './Images';
-
+import {SubHeader} from '../pdf/Header';
+import {SubFooter} from '../pdf/Footer';
 import {getDataUri} from "./GetDataUri";
 
 export function CreatePdf(obj) {
-
-
-    //let pdfName = this.dialogInfo.paciente + " - "+ this.dialogInfo.id;
     var doc = new jsPDF();
 
     // Header
-    doc.addImage(header, 'png', 10, 5, 200, 25);
-
-    // Informe
-    doc.line(10, 33, 200, 33); // horizontal line
-    doc.setFontSize(19);
-    doc.text(60, 40, 'INFORME DE RESULTADOS');
-    doc.line(10, 42, 200, 42); // horizontal line
-
-    doc.setFontSize(11);
-    doc.text(10, 49, "Paciente: ");
-    doc.text(28, 49, obj.paciente);
-
-    doc.text(60, 49, "Sexo: ");
-    doc.text(71, 49, obj.sexo);
-
-    doc.text(86, 49, "Edad: ");
-    doc.text(98, 49, obj.edad);
-
-    doc.text(140, 49, "Fecha Nac: ");
-    //var fechaNac = new Date(obj.fecha_factura);
-    //fechaNac = new Intl.DateTimeFormat('en-AU').format(fechaNac); // Australian date format: "8/10/2010"
-    //doc.text(162, 49, fechaNac);
-
-    doc.text(10, 56, "Medico: ");
-    doc.text(26, 56, obj.medico);
-
-    doc.text(60, 56, "Sucursal: ");
-    doc.text(77, 56, obj.sucursal);
-
-    doc.text(90, 56, "Cod. interno: ");
-    doc.text(112, 56, obj.id_orden.toString());
-
-    doc.text(140, 56, "Fecha Factura: ");
-
-    doc.rect(10, 60, 190, 10); // empty square
-    doc.setFontSize(15);
-    doc.text(75, 67, obj.nombre);
+    SubHeader(doc, header, obj);
 
     doc.setFontSize(11);
 
     if (obj.curva_data != null) {
 
-        let logo = null;
+        /*let logo = null;
         getDataUri("https://i.ibb.co/N6HJshg/graph.png", function (dataUri) {
             logo = dataUri;
             console.log("logo=" + logo);
-        });
+        });*/
 
-        doc.addImage(logo, 'png', 30, 120, 160, 45);
+        doc.addImage(curvaImg, 'png', 30, 120, 160, 45);
 
     } else {
 
-        //doc.autoTable({html: '#my-table'});
+        let trans = 80;
+        let i = 1;
 
-        // Or JavaScript:
+        for (let [key, value] of Object.entries(obj.resultados.data)) {
 
+            var J = 10;
+            var R = i++;
+            var rest = J * R;
+            var fila = trans + rest;
+            doc.text(10, fila, value.title);
+           //console.log(key, value);
+        }
 
     }
-    doc.addImage(footer, 'png', 0, 267, 210, 30);
 
-    doc.save(obj.nombre + '.pdf');
+    // Footer
+    SubFooter(doc, footer,obj);
 }
