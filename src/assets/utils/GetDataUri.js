@@ -18,4 +18,13 @@ export function getDataUri(url, cb) {
     };
 
     image.src = url;
+
+
+    /*
+    * Firma de salida
+    let logo = null;
+        getDataUri("https://i.ibb.co/N6HJshg/graph.png", function (dataUri) {
+            logo = dataUri;
+            console.log("logo=" + logo);
+        });*/
 }
